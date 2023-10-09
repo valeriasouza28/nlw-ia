@@ -1,4 +1,4 @@
-# @name get-prompt
+# @name get-prompts
 GET http://localhost:3333/prompts
 
 ###
@@ -8,22 +8,30 @@ POST http://localhost:3333/videos
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="text"
-
-title
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="image"; filename="FelipeDeschamps.mp3"
+Content-Disposition: form-data; name="file"; filename="example.mp3"
 Content-Type: audio/mpeg
 
-< ./FelipeDeschamps.mp3
+< ./example.mp3
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
 
 # @name create-transcription
-POST http://localhost:3333/videos/7f7d67d9-a3a2-480e-8783-e1c130d4fa6f/transcription
+POST http://localhost:3333/videos/a8d2df0d-1774-4928-a3f9-bc83729c9603/transcription
 Content-Type: application/json
 
 {
-  "prompt": "item do artigo, conselho"
+  "prompt": "clean architecture, ddd"
+}
+
+###
+
+# @name generate-ai-completion
+POST http://localhost:3333/ai/complete
+Content-Type: application/json
+
+{
+  "videoId": "a8d2df0d-1774-4928-a3f9-bc83729c9603",
+  "temperature": 0.5,
+  "prompt": "Gere um resumo da transcrição do vídeo informada a seguir: '''{transcription}'''"
 }
